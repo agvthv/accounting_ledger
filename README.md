@@ -7,7 +7,7 @@ Don't believe us yet? Well it's time to meet Emily.
 
 ---
 
-**Scenario: Emily's Financial Awakening**
+**Scenario: Emily's Path of Success**
 
 Emily, a 28-year-old graphic designer, has always been creative with her designs but not so much with her finances. Recently, she landed a couple of big clients, significantly boosting her income. With this sudden increase, Emily finds herself unsure about managing her new financial situation effectively.
 
@@ -33,7 +33,7 @@ After completing a transaction, it will be recorded like so:
 
 ![output](/images/Output.png)
 
-**Emily: Okay wow! I love the simplicity of this application. BUt, tell me, what does the ledger do?**
+**Emily: Okay wow! I love the simplicity of this application. But, tell me, what does the ledger do?**
 
 Agatha: The ledger displays the transactions you made, and it breaks it down even further in the reports option. Let's go through it together.
 
@@ -57,7 +57,7 @@ If you want to see an even more detailed report, we broke it up into different t
 
 This one shows all transactions in this month. Similarly, you can also see transactions for the previous month too like this:
 
-![previousMonth](/images/previousMonth.pngs/)
+![previousMonth](/images/previousMonth.png)
 
 **Emily: That’s very handy! Last question, what if I want to search up a transaction made at a certain place?**
 
