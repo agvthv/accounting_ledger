@@ -11,7 +11,7 @@ public class Reports
 {
     private static Scanner userInput = new Scanner(System.in);
 
-    public void runReportMenu() throws FileNotFoundException
+    public static void runReportMenu() throws FileNotFoundException
     {
         System.out.println();
         System.out.println("Reports");
@@ -46,6 +46,7 @@ public class Reports
                 System.out.println("Invalid choice");
                 break;
         }
+
     }
 
     public static void monthToDate() throws FileNotFoundException
@@ -72,9 +73,10 @@ public class Reports
         } catch (IOException e) {
             System.out.println("File not read.");
         }
+        runReportMenu();
     }
 
-    public static void previousMonth()
+    public static void previousMonth() throws FileNotFoundException
     {
         String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         LocalDate today = LocalDate.now();
@@ -98,9 +100,10 @@ public class Reports
         } catch (IOException e) {
             System.out.println("File not read.");
         }
+        runReportMenu();
     }
 
-    public static void yearToDate()
+    public static void yearToDate() throws FileNotFoundException
     {
         String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         LocalDate today = LocalDate.now();
@@ -123,9 +126,10 @@ public class Reports
         } catch (IOException e) {
             System.out.println("File not read.");
         }
+        runReportMenu();
     }
 
-    public static void previousYear()
+    public static void previousYear() throws FileNotFoundException
     {
         String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         LocalDate today = LocalDate.now();
@@ -149,6 +153,7 @@ public class Reports
         } catch (IOException e) {
             System.out.println("File not read.");
         }
+        runReportMenu();
     }
 
     public static void searchVendor() throws FileNotFoundException {
@@ -177,6 +182,8 @@ public class Reports
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
+        runReportMenu();
     }
+
 
 }
