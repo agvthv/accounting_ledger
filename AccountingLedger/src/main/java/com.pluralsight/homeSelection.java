@@ -15,9 +15,11 @@ public class homeSelection {
 
     public homeSelection() throws FileNotFoundException
     {
-        System.out.println("☆".repeat(20));
-        System.out.println("Welcome to Jung Bank");
-        System.out.println("☆".repeat(20));
+        String yellow = "\u001B[33m";
+        String reset = "\u001B[0m";
+        System.out.println(yellow + "☆".repeat(20)+ reset);
+        System.out.println(yellow + "Welcome to Jung Bank"+ reset);
+        System.out.println(yellow + "☆".repeat(20)+ reset);
         System.out.println("Choose an option:");
         System.out.println();
         System.out.println(" D) Add Deposit \n P) Make Payment \n L) Ledger \n X) Exit \n");
