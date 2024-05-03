@@ -7,7 +7,8 @@ public class Ledger
 {
     private static Scanner userInput = new Scanner(System.in);
 
-    public void runLedgerMenu() {
+    public void runLedgerMenu() throws FileNotFoundException
+    {
         System.out.println();
         System.out.println("Ledger");
         System.out.println("-".repeat(20));
@@ -41,7 +42,8 @@ public class Ledger
         }
         runLedgerMenu();
     }
-    public void displayAllEntries() {
+    public void displayAllEntries() throws FileNotFoundException
+    {
         String path = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -64,7 +66,8 @@ public class Ledger
         }
         runLedgerMenu();
     }
-    public void displayDeposit(){
+    public void displayDeposit() throws FileNotFoundException
+    {
         String path = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -92,7 +95,8 @@ public class Ledger
         }
         runLedgerMenu();
     }
-    public void displayPayment(){
+    public void displayPayment() throws FileNotFoundException
+    {
         String path = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;

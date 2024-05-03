@@ -1,4 +1,5 @@
 package com.pluralsight;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -12,7 +13,8 @@ public class homeSelection {
 
     private static Scanner userInput = new Scanner(System.in);
 
-    public homeSelection() {
+    public homeSelection() throws FileNotFoundException
+    {
         System.out.println("☆".repeat(20));
         System.out.println("Welcome to Jung Bank");
         System.out.println("☆".repeat(20));
@@ -44,7 +46,8 @@ public class homeSelection {
         }
     }
 
-    public static void deposit(Logger logger, Scanner userInput) {
+    public static void deposit(Logger logger, Scanner userInput) throws FileNotFoundException
+    {
         System.out.print("Enter deposit description: ");
         String depositDescription = userInput.nextLine().toUpperCase();
         System.out.print("Enter vendor: ");
@@ -60,7 +63,8 @@ public class homeSelection {
 
 
     }
-    public static void payment() {
+    public static void payment() throws FileNotFoundException
+    {
         System.out.print("Enter payment description: ");
         String paymentDescription = userInput.nextLine().toUpperCase();
         System.out.print("Enter vendor: ");
@@ -75,10 +79,7 @@ public class homeSelection {
         new homeSelection();
 
     }
-
-
-
-    private static void saveToCSV(String transactionInfo) {
+    public static void saveToCSV(String transactionInfo) {
         String csvFile = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -93,5 +94,6 @@ public class homeSelection {
             e.printStackTrace();
         }
     }
+
 
 }
