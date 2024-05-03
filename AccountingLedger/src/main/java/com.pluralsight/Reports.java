@@ -1,9 +1,9 @@
 package com.pluralsight;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,19 +23,19 @@ public class Reports
 
         switch (choice) {
             case "1":
-                monthToDate("file/transactions.csv");
+                monthToDate();
                 break;
             case "2":
-                //previousMonth();
+                previousMonth();
                 break;
             case "3":
-                //yearToDate();
+                yearToDate();
                 break;
             case "4":
-                //previousYear();
+                previousYear();
                 break;
             case "5":
-                //searchVendor();
+                searchVendor();
                 break;
             case "0":
                 // Assuming Ledger is another class with its menu
@@ -48,36 +48,135 @@ public class Reports
         }
     }
 
-    public static void monthToDate(String filePath) throws FileNotFoundException
+    public static void monthToDate() throws FileNotFoundException
     {
-        ArrayList<Transactions> month2Date = new ArrayList<>();
-        File file = new File(filePath);
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+        String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
+        LocalDate today = LocalDate.now();
+        LocalDate month2Date = today.withDayOfMonth(1);
+        int todayMonth = today.getMonthValue();
+        int todayYear = today.getYear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
 
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().trim().split("\\|");
-                LocalDate date = LocalDate.parse(data[1].trim(), dateFormatter);
-                if (!date.isAfter(firstDayOfMonth)) {
-                    String description = data[3].trim();
-                    String vendor = data[5].trim();
-                    double cost = Double.parseDouble(data[7].trim());
-                    month2Date.add(new Transactions(date, description, vendor, cost));
-                }
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                try {
+                    LocalDate date = LocalDate.parse(parts[0]);
+                    if (date.getMonthValue() == todayMonth && date.getYear() == todayYear) {
+                        System.out.println(line);
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Failed to parse date from line: '" + line + "'");
                 }
             }
-        catch (FileNotFoundException e) {
-            System.err.println("File not found");
+        } catch (IOException e) {
+            System.out.println("File not read.");
         }
-
-        month2Date.forEach(System.out::println);
-    }
     }
 
+    public static void previousMonth()
+    {
+        String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
+        LocalDate today = LocalDate.now();
+        LocalDate firstDay = today.minusMonths(1).withDayOfMonth(1);
+        LocalDate lastDay = today.withDayOfMonth(1).minusDays(1);  // Last day of the previous month
 
-//    public static void previousMonth() {}
-//    public static void yearToDate() {}
-//    public static void previousYear() {}
-//    public static void searchVendor() {}
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
 
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                try {
+                    LocalDate date = LocalDate.parse(parts[0]);
+                    if (!date.isBefore(firstDay) && !date.isAfter(lastDay)) {
+                        System.out.println(line);
+                    }
+                } catch (DateTimeParseException e) {
+
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File not read.");
+        }
+    }
+
+    public static void yearToDate()
+    {
+        String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
+        LocalDate today = LocalDate.now();
+        LocalDate startOfTheYear = LocalDate.of(today.getYear(), 1, 1);  // First day of the current year
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                try {
+                    LocalDate date = LocalDate.parse(parts[0]);
+                    if (!date.isBefore(startOfTheYear) && !date.isAfter(today)) {  // Check if the date is within the current year to date
+                        System.out.println(line);
+                    }
+                } catch (DateTimeParseException e) {
+
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File not read.");
+        }
+    }
+
+    public static void previousYear()
+    {
+        String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
+        LocalDate today = LocalDate.now();
+        LocalDate startOfLastYear = LocalDate.of(today.getYear() - 1, 1, 1);  // First day of the previous year
+        LocalDate endOfLastYear = LocalDate.of(today.getYear() - 1, 12, 31);  // Last day of the previous year
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                try {
+                    LocalDate date = LocalDate.parse(parts[0]);
+                    if (!date.isBefore(startOfLastYear) && !date.isAfter(endOfLastYear)) {  // Check if the date is within the previous year
+                        System.out.println(line);
+                    }
+                } catch (DateTimeParseException e) {
+
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File not read.");
+        }
+    }
+
+    public static void searchVendor() throws FileNotFoundException {
+        System.out.print("Enter the vendor name to search for: ");
+        String searchVendor = userInput.nextLine().toUpperCase();  // Convert input to uppercase for case-insensitive comparison
+        String filePath = "/Users/agathasilva/Desktop/PluralSight/LearnToCode_Capstones/accounting_ledger/AccountingLedger/file/transactions.csv";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean found = false;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String vendor = parts[3].toUpperCase();
+
+                if (vendor.contains(searchVendor)) {
+                    System.out.println(line);
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                System.out.println("No transactions found for the vendor: " + searchVendor);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+}
